@@ -6,7 +6,10 @@ import donghoNam from '../products/donghoNam.vue'
 import donghoNu from '../products/donghoNu.vue'
 import phuKien from '../products/phuKien.vue'
 import TinTuc from '../page/TinTuc.vue'
+import giohang from '../products/cart.vue'
+import admin from '../manager/detail/AddProductOverviews.vue'
 import Cookies from 'js-cookie'
+
 import jwt_decode from 'jwt-decode';
 
 const routes = [ 
@@ -41,7 +44,17 @@ const routes = [
     {
         path: "/TinTuc",
         component: TinTuc
-    }
+    },
+    {
+        path: "/cart",
+        component: giohang
+    },
+    {
+        path: "/admin",
+        component: admin
+    },
+
+
 ]
 const router = createRouter({
     history:createWebHistory(),

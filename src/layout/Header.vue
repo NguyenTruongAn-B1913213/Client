@@ -119,13 +119,6 @@ export default {
       async search(e){
          e.preventDefault()
          try {
-            // if(!this.searchHistory){
-            //    this.searchHistory = []
-               
-            // }else{
-            //    this.searchHistory = JSON.parse(Cookies.get('searchHistory'))
-               
-            // }
             this.searchHistory = JSON.parse(Cookies.get('searchHistory')) || [];
             this.searchHistory.push(this.searchKey);
             console.log(this.searchHistory)
@@ -159,13 +152,6 @@ export default {
       }
    },
 }
-// window.onscroll = function () {
-//    if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
-//       document.getElementById("headerFixed").style.transform = "translate(0,0)";
-//    } else {
-//       document.getElementById("headerFixed").style.transform = "translate(0,-100%)";
-//    }
-// }
 </script>
 
 <style>

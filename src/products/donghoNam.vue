@@ -159,7 +159,17 @@ export default {
                     Authorization: `Bearer ${token}`,
                 };
                 console.log(headers)
-                const res = await axios.get(`http://localhost:3000/api?page=${this.page}`,{headers})
+             // const configAxios = {
+                //     method: "GET",
+                //     url
+                // }     // const res = await axios.get(`http://localhost:3000/api?page=${this.page}`,{headers})
+              
+                const res = await axios({
+                    method: "GET",
+                    url: `http://localhost:3000/api?page=${this.page}`,
+                    headers
+                })
+
                 this.products = res.data.products
                 console.log(this.products)
                 this.totalPages = res.data.totalPages
