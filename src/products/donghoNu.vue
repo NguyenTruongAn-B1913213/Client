@@ -3,7 +3,7 @@
         <!-- <Header style="background-color:black" class="pb-2" /> -->
             <div class="container-fluid donghoNam-main">
                 <h3>TRANG CHỦ / <span>ĐỒNG HỒ NỮ</span></h3>
-                <div class="row">
+                <div class="row  donghoNam-List">
                     <div class="col-sm-3 sidebar">
                         <aside id="nav_menu-2" class="widget widget_nav_menu">
                             <span class="widget-title shop-sidebar">DANH MỤC SẢN PHẨM</span>
@@ -69,13 +69,17 @@
                     <div v-for="(product, index) in donghoNam"
                                     :key="index" class="col-sm-3 donghoNU">
                         <div class="list-item-donghoNam">
-                            <div class="list-item-watch-donghoNam">
-                                <a href="#">
-                                    <productItem
-                                        :product="product" @handle-addcart="handleAddCart"
-                                    />
-                                </a>
-                            </div>
+                            <router-link to="/Detail-Product">
+                            
+                                <div class="list-item-watch-donghoNam">
+                                    <a href="#">
+                                        <productItem
+                                            :product="product" @handle-addcart="handleAddCart"
+                                        />
+                                    </a>
+                                </div>
+                      
+                            </router-link>
                         </div>
                     </div>
                 </div>

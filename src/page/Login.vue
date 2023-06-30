@@ -21,6 +21,15 @@
                             </div>
                             <button type="submit" @click="login"  class="btn submitLogin">Đăng Nhập </button>
                             <router-link to="/Register" type="submit" class="btn submitLogin">Đăng ký</router-link>
+                            <div class="icon-social">
+                                <router-link to="/">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Facebook_icon_2013.svg/2048px-Facebook_icon_2013.svg.png" alt="facebook">
+                                </router-link>
+
+                                <router-link to="/">
+                                    <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="google">
+                                </router-link>
+                            </div>
                     </form>
                     
                 </div>
@@ -75,7 +84,7 @@ export default {
                 expirationTime.setTime(expirationTime.getTime() + 3 * 60 * 60 * 1000); // Set expiration time to 3 hours from now
                 Cookies.set("token",this.token,{expires: expirationTime});
                 alert("Đăng nhập thành công")
-                router.push("/donghoNam")
+                // router.push("/donghoNam")
             } catch (error) {
                 console.log(error)   
             }
@@ -167,5 +176,13 @@ export default {
 }
  .FormBox{
     right: 50%;
+}
+.icon-social{
+    text-align: center;
+}
+.icon-social img{
+  width: 40px;
+  height: 100%;
+  margin: 20px;
 }
 </style>

@@ -3,7 +3,7 @@
         <!-- <Header style="background-color:black" class="pb-2" /> -->
             <div class="container-fluid donghoNam-main">
                 <h3>TRANG CHỦ / <span>ĐỒNG HỒ NAM</span></h3>
-                <div class="row">
+                <div class="row  donghoNam-List">
                     <div class="col-sm-3 sidebar">
                         <aside id="nav_menu-2" class="widget widget_nav_menu">
                             <span class="widget-title shop-sidebar">DANH MỤC SẢN PHẨM</span>
@@ -68,6 +68,8 @@
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col-sm-4" v-for="(product, index) in products" :key="index">
+                                <!-- <a href="/Detail-Product"> -->
+                                <router-link to="/Detail-Product">
                                 <div class="list-item-donghoNam"  >
                                     <div class="list-item-watch-donghoNam" >
                                             <productItem
@@ -75,6 +77,8 @@
                                             />
                                     </div>
                                 </div>
+                            </router-link>
+                            <!-- </a> -->
                             </div>
                         </div>
                         <nav aria-label="Page navigation example" id="pagination">
@@ -106,17 +110,40 @@
 // import Header from '../layout/Header.vue'
 import Footer from '../layout/Footer.vue'
 import productItem from '../products/productItem.vue'
-import axios from 'axios';
-import Cookies from 'js-cookie';
-// import img1 from '../img/list-watch/watch-1.jpg'
-// import img2 from '../img/list-watch/watch-2.jpg'
+// import axios from 'axios';
+// import Cookies from 'js-cookie';
+import img1 from '../img/list-watch/watch-1.jpg'
+import img2 from '../img/list-watch/watch-2.jpg'
 // import img3 from '../img/list-watch/watch-3.jpg'
 export default {
     name: 'donghoNam-page',
     data() {
         return {
             cartList: [],
-            products:[],
+            products:[
+                {
+                id: 1,
+                nameType: "Đồng Hồ Nam",
+                img: img1,
+                nameItem: "ĐỒNG HỒ NAM CAO CẤP CASIO MTP-1374L-1AVDF NAM PIN DÂY DA",
+                price: '2000000',
+                tonkho:'35',
+                pricediscount: '1800000',
+                discount: '-10%',
+                amount:1
+            },
+            {
+                id: 2,
+                nameType: "Đồng Hồ Nam",
+                img: img2,
+                nameItem: "ĐỒNG HỒ NAM TRUNG BÌNH CASIO MTP-1374L-1AVDF NAM PIN DÂY DA",
+                price: '2.000.000',
+                tonkho: '15',
+                pricediscount: '1600000',
+                discount: '-20%',
+                amount:1
+                },
+            ],
             page: 1,
             totalPages: 0,
             // [ {
@@ -141,68 +168,70 @@ export default {
             //     discount: '-20%',
             //     amount:1
             //     },
+            
         }
+
     },
     components:{
         // Header,
         Footer,
         productItem
     },
-    mounted() {
-    this.fetchData();
-  },
-    methods: {
-        async fetchData(){
-            try {
-                const token = Cookies.get("token");
-                const headers = {
-                    Authorization: `Bearer ${token}`,
-                };
-                console.log(headers)
-             // const configAxios = {
-                //     method: "GET",
-                //     url
-                // }     // const res = await axios.get(`http://localhost:3000/api?page=${this.page}`,{headers})
+//     mounted() {
+//     this.fetchData();
+//   },
+    // methods: {
+    //     async fetchData(){
+    //         try {
+    //             const token = Cookies.get("token");
+    //             const headers = {
+    //                 Authorization: `Bearer ${token}`,
+    //             };
+    //             console.log(headers)
+    //          // const configAxios = {
+    //             //     method: "GET",
+    //             //     url
+    //             // }     // const res = await axios.get(`http://localhost:3000/api?page=${this.page}`,{headers})
               
-                const res = await axios({
-                    method: "GET",
-                    url: `http://localhost:3000/api?page=${this.page}`,
-                    headers
-                })
+    //             const res = await axios({
+    //                 method: "GET",
+    //                 url: `http://localhost:3000/api?page=${this.page}`,
+    //                 headers
+    //             })
 
-                this.products = res.data.products
-                console.log(this.products)
-                this.totalPages = res.data.totalPages
-            } catch (error) {
-                console.log(error)
-            }
+    //             this.products = res.data.products
+    //             console.log(this.products)
+    //             this.totalPages = res.data.totalPages
+    //         } catch (error) {
+    //             console.log(error)
+    //         }
             
-        },
-        previousPage() {
-            if (this.page > 1) {
-                this.page--;
-                this.fetchData();
-            }
-        }, 
-        nextPage() {
-            if (this.page < this.totalPages) {
-                this.page++;
-                this.fetchData();
-            }
-        },
-        changePage(pageNumber){
-            if(pageNumber != this.page ){
-                this.page = pageNumber
-                this.fetchData();
-            }
-        }
-    },
+    //     },
+    //     previousPage() {
+    //         if (this.page > 1) {
+    //             this.page--;
+    //             this.fetchData();
+    //         }
+    //     }, 
+    //     nextPage() {
+    //         if (this.page < this.totalPages) {
+    //             this.page++;
+    //             this.fetchData();
+    //         }
+    //     },
+    //     changePage(pageNumber){
+    //         if(pageNumber != this.page ){
+    //             this.page = pageNumber
+    //             this.fetchData();
+    //         }
+    //     }
+    // },
   
 }
 </script>
 
 <style>
-.row{
+.donghoNam-List{
     margin-top: 80px;
 }
 .discount{

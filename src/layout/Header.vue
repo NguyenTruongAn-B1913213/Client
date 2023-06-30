@@ -21,34 +21,58 @@
                      <li class="nav-item">
                         <router-link to="/phuKien" class="nav-link">Phụ Kiện</router-link>
                      </li>
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                           <router-link to="/TinTuc" class="nav-link">Tin Tức</router-link>
-                     </li>
+                     </li> -->
                       <li class="nav-item">
                             <router-link class="nav-link" to="./Login">Đăng Nhập</router-link>
                      </li>
                    </ul>
                    <form class="form-inline">
+                     <div id="app">
                      <div class="icon">
-                        <i class="fa fa-search"></i>
-                        <div class="nav-search">
-                           <form class="form-inline-nav my-2 my-sm-3 navbar-search" @submit="search">
-                              <input class="form-control mr-sm-2" id="history-search-main" tabindex="0" type="search" v-model="searchKey" placeholder="Search" aria-label="Search" @focus="showHistorySearch">
-                              <button class="btn btn-outline my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
-                           </form>
-                           <ul class="history-search" v-show ="isHistorySearchVisible">
-                              <li>dong ho nam</li>
-                              <li>dong ho nu</li>
-                              <li>phu kien</li>
-                           </ul>
-                        </div>
+                        <form class="form" id="icon-search">
+                            <button>
+                                <svg width="17" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
+                                    <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                            <input class="input" placeholder="Type your text" required="" type="text">
+                            <button class="reset" type="reset">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                            <div class="nav-search" >
+                              <ul class="history-search">
+                                 <li>dong ho nam</li>
+                                 <li>dong ho nu</li>
+                                 <li>phu kien</li>
+                              </ul>
+                           </div>
+                        </form>
+                       
+                        
+                       
+                     </div>
+                       
                      </div>
                      <div class="icon">
                         <router-link to="/Login"><i class="fa fa-user"></i></router-link>
+                        <div class="logout">
+                              <ul>
+                                 <li>Log-out</li>
+                              </ul>
+                        </div>
                      </div>
                      <div class="icon">    
-                        <i @click="handleOpenModalCartList" class="fa fa-shopping-bag"></i>
+                        <i @click="handleOpenModalCartList" class="fa fa-shopping-bag cart-shopping"></i>
                         <span class="bages bages-light">{{ getCartList }}</span>
+                        <div class="detail-cart">
+                              <router-link to="/cart">
+                                 <span>Chi Tiết Giỏ Hàng</span>
+                              </router-link>
+                        </div>
                      </div>
                    </form>
                  </div>
@@ -75,10 +99,12 @@ import CartList from '../page/CartList.vue'
 import AppModal from '../products/AppModal.vue';
 import axios from 'axios';
 import Cookies from 'js-cookie'
+
  
 
 export default {
    name:'header-page',
+   el: '#app',
    components: {
       AppModal,
       CartList,
@@ -93,11 +119,12 @@ export default {
          cartList: [], //push dữ liệu vào data cartList
          searchKey: '',
          searchHistory: [],
-         isHistorySearchVisible: false
+         isHistorySearchVisible: false,
          
        },
       {
          isOpenModalCartList: false,
+         
       }
    },
    computed: {
@@ -124,7 +151,6 @@ export default {
             console.log(this.searchHistory)
             Cookies.set('searchHistory',JSON.stringify(this.searchHistory),{expires: 30})
 
-            
             const res = await axios.get("http://localhost:3000/api/search",{
                params:{
                searchKey: this.searchKey
@@ -149,7 +175,7 @@ export default {
       },
       hideHistorySearch() {
          this.isHistorySearchVisible = false;
-      }
+      },
    },
 }
 </script>
@@ -202,14 +228,14 @@ export default {
 .nav-item:not(:last-child){
    border-right:1px solid white ;
 }
-.icon:not(:last-child){
+/* .icon:not(:last-child){
     border-right:1px solid white ;
-}
+} */
 .icon{
    position: relative;
 }
 .icon i {
-   padding: 0 10px;
+   padding: 0 15px;
    line-height: 1px;
    color: #fff; ;
    font-size: 20px;
@@ -254,57 +280,166 @@ export default {
       left: 250px;
    }
 }
-.nav-search{
+
+
+.logout{
+   background: #fff;
    position: absolute;
-   top: 18px;
-   left: -300px;
-   display: none;
+   top: 40px;
+   left: -50px;
+   width: 100px;
+   opacity: 0;
+   visibility: hidden;
+   transition: .5s ease;
+   border: 1px solid black;
 }
-.navbar-search{
-   border: 1px solid orange;
-   padding: 25px;
-   background-color: white;
+.logout ul {
+   list-style: none;
 }
-.navbar-search button{
-   border: 1px solid orange;
-}
-.navbar-search button i {
-   color: black;
-}
-.navbar-search button i:hover{
-   color: white;
-}
-.navbar-search button:hover{
-   color: white;
-   background-color:orange;
-}
-.icon:hover .nav-search{
-  display: block;
-}
-/* history-search */
-.history-search{
-   color: black;
-   background: #ccc5c5;
+.logout ul li {
+   text-align: left;
    margin-top: 10px;
-   padding: 10px;
-   display: none;
+   margin-left: 20px;
+}
+.icon:hover .logout{
+   opacity: 1;
+   visibility: visible;
 }
 
-.icon:hover .history-search{
+/* history-search */
+.nav-search {
+   background:white;
+   position: absolute;
+   top: 50px;
+   left: 0;
+   width: 100%;
+   padding: 20px;
+   display: none;
+}
+.nav-search .history-search{
+   list-style: none;
+   text-transform: uppercase;
+}
+.history-search li {
+   margin-bottom: 10px;
+}
+.input:focus ~ .nav-search{
    display: block;
 }
-.history-search {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  border: 1px solid gray;
-  padding: 10px;
-  z-index: 999;
+.detail-cart{
+   position: absolute;
+   width: 200px;
+   text-align: center;
+   top:33px;
+   left: -40px;
+   z-index: 99;
+   border: 1px solid black;
+   padding: 20px;
+   background: #fff;
+   opacity: 0;
+   visibility: hidden;
+   transition:  .4s linear;
+}
+.detail-cart a{
+   text-decoration: none;
+}
+.detail-cart span {
+   background: #E2BA48;
+   padding: 10px;
+   color: #fff;
+   border-radius:10px ;
+}
+.icon:hover .detail-cart{
+   opacity: 1;
+   visibility: visible;
 }
 
+/* .icon:hover .history-search{
+   display: block;
+} */
 
 
+/* From uiverse.io by @satyamchaudharydev */
+/* removing default style of button */
 
+.form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+/* styling of whole input container */
+.form {
+  --timing: 0.3s;
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: orange;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+  border: 1px solid black; 
+}
+/* styling of Input */
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+/* styling of animated border */
+.form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+/* Hover on Input */
+.form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+input:focus {
+  outline: none;
+}
+/* here is code of animated border */
+.form:focus-within:before {
+  transform: scale(1);
+}
+/* styling of close button */
+/* == you can click the close button to remove text == */
+.reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+/* close button shown when typing */
+input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+/* sizing svg icons */
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
 </style>

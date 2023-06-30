@@ -1,48 +1,52 @@
 <template>
-
   <div class="addproduct-page">
     <div class="bg-avatar"></div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3">
-          <!-- <TheSideBarAdminVue></TheSideBarAdminVue> -->
+          <TheSideBarAdmin />
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-9 Add-admin-product">
           <div class="header-sm-9">
             <span>Overview</span>
           </div>
           <div class="container">
             <div class="row">
               <div class="col-sm-12">
-                <form class="main-add-product-admin">
+                <form class="main-add-content">
                   <table class="table table-light">
                     <thead>
                       <tr class="content-main-thead">
                         <th scope="col">ID</th>
                         <th scope="col">Hình Ảnh</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Tên Sản Phẩm</th>
+                        <th scope="col">Ngày</th>
+                        <th scope="col">Tiêu Đề H1</th>
+                        <th scope="col">Tiêu Đề</th>
                         <th scope="col">Trạng Thái</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="content-main-tbody-admin">
+                      <tr class="content-main-tbody-product">
                         <th scope="row">1</th>
                         <td>
                           <img
-                            src="https://images.footballfanatics.com/paris-saint-germain/paris-saint-germain-nike-home-dri-fit-adv-match-shirt-2023-24_ss4_p-13368107+u-6swpap3ahgp3lvfzx2td+v-b9d974f0ee1647239a47695dac55586b.jpg?_hv=2&w=340"
+                            src="../../../img/list-watch/watch-1.jpg"
                             alt=""
                             class="img-product-page-admin"
                           />
                         </td>
-                       
-                          <td>12.99$</td>
-                          <td>PSG Home Match Dri-FIT ADV Jersey 23/24</td>
-                       <div class="mainEdit-Product">
+                        <td>01-10-2022</td>
+                        <td>PSG Home Match Dri-FIT ADV Jersey 23/24</td>
+                        <td>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Commodi molestias, dicta alias iure numquam
+                          magni voluptatum aliquid vitae culpa dolor?
+                        </td>
+                        <div class="mainEdit-Product">
                           <div class="EditProduct">
                             <td>
                               <router-link
-                                to="/admin/manager/AddProduct/Overviews/EditProduct"
+                                to="/admin/manager/AddContentHome/Overviews/EditContent"
                               >
                                 <i class="fa fa-edit"></i>
                                 <span class="badge badge-light"></span>
@@ -52,10 +56,10 @@
 
                           <td>
                             <div class="delete">
-                                <i class="fa fa-trash-alt"></i>
-                                <span class="badge badge-light ml-2"></span>
+                              <i class="fa fa-trash-alt"></i>
+                              <span class="badge badge-light ml-2"></span>
                             </div>
-                        </td> 
+                          </td>
                         </div>
                       </tr>
                     </tbody>
@@ -70,24 +74,19 @@
   </div>
 </template>
 <script>
-// import TheSideBarAdminVue from '../../layout/TheSideBar-Admin.vue';
-
+import TheSideBarAdmin from '../../../layout/TheSideBar-Admin.vue'
 export default {
   components:{
-    // TheSideBarAdminVue
+    TheSideBarAdmin
   }
 };
-
-
 </script>
 
-
-<style scoped>
-
-.content-main-tbody-admin{
+<style>
+.content-main-tbody-admin {
   margin: 0;
 }
-.mainEdit-Product{
+.mainEdit-Product {
   display: flex;
   justify-content: center;
 }
@@ -108,6 +107,7 @@ export default {
   height: 40px;
   margin-top:18px;
   text-align: center;
+  padding: 10px;
 }
 .img-product-page-admin {
   width: 70px;
@@ -115,10 +115,14 @@ export default {
 .content-main-tbody td,
 th {
   text-align: center;
-  margin-top: 20px;
+  padding-top: 20px;
 }
-.title-product-admin{
+.title-product-admin {
   justify-content: center;
-  text-align: center;
+}
+.table td,
+.table th {
+  vertical-align: middle;
+  border-top: none;
 }
 </style>

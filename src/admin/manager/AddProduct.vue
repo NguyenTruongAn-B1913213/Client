@@ -1,12 +1,11 @@
 <template>
   <div class="addproduct-page">
-    <div class="bg-avatar"></div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3">
             <TheSideBarAdmin />
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-9 Add-admin-product">
           <div class="header-sm-9">
             <h2>ADDPRODUCT</h2>
             <router-link to="/admin/manager/AddProduct/Overviews"
@@ -65,7 +64,7 @@
 </template>
 
 <script>
-import TheSideBarAdmin from '@/components/TheSideBar-Admin.vue';
+import TheSideBarAdmin from '../../layout/TheSideBar-Admin.vue';
 export default {
   components: {
     TheSideBarAdmin

@@ -7,8 +7,17 @@ import donghoNu from '../products/donghoNu.vue'
 import phuKien from '../products/phuKien.vue'
 import TinTuc from '../page/TinTuc.vue'
 import giohang from '../products/cart.vue'
-import admin from '../manager/detail/AddProductOverviews.vue'
 import Cookies from 'js-cookie'
+import admin from '../admin/manager/Admin.vue'
+import AddProduct from '../admin/manager/AddProduct.vue'
+import AddCatorgory from '../admin/manager/AddCatorgory.vue'
+import Overviews from '../admin/manager/detail/AddProductOverviews.vue'
+import OverviewsContent from '../admin/manager/detail/AddContentHomeOverviews.vue'
+import EditProduct from '../admin/manager/edit/EditProduct.vue'
+// import EditContent from '../admin/manager/edit/EditContent.vue'
+import StatusBill from '../admin/manager/status-bill/Status-Produt.vue'
+import DetailProduct from '../detail-product/Detail-Product.vue'
+
 
 import jwt_decode from 'jwt-decode';
 
@@ -17,6 +26,12 @@ const routes = [
         path: "/Home",
         name:"home",
         component: Home,
+        
+    },
+    {
+        path: "/Detail-Product",
+        name:"DetailProduct",
+        component: DetailProduct,
         
     },
     {
@@ -30,7 +45,7 @@ const routes = [
     {
         path: "/donghoNam",
         component: donghoNam,
-        meta: { requiresAuth: true, requiresAdmin: true }, 
+        // meta: { requiresAuth: true, requiresAdmin: true }, 
     },
     {
         path: "/donghoNu",
@@ -50,11 +65,40 @@ const routes = [
         component: giohang
     },
     {
-        path: "/admin",
+        path: '/admin/manager',
+        name: "admin",
         component: admin
     },
-
-
+    {
+        path: '/admin/manager/AddProduct',
+        name: "AddProduct",
+        component: AddProduct
+    },
+    {
+        path: '/admin/manager/AddCatorgory',
+        name: "AddCatorgory",
+        component: AddCatorgory
+    },
+    {
+        path: '/admin/manager/StatusBill',
+        name: "StatusBill",
+        component: StatusBill
+    },
+    {
+        path: '/admin/manager/AddProduct/Overviews',
+        name: "Overviews",
+        component: Overviews
+    },
+    {
+        path: '/admin/manager/AddContentHome/Overviews',
+        name: "AddContentHomeOverviews",
+        component: OverviewsContent
+    },
+    {
+        path: '/admin/manager/AddProduct/Overviews/EditProduct',
+        name: "EditProduct",
+        component: EditProduct
+    },
 ]
 const router = createRouter({
     history:createWebHistory(),

@@ -4,8 +4,8 @@
                 <div class="discount">
                     <span>{{ product.discount }}</span>
                 </div>
-                <img v-bind:src="product.hinhanh" class="img"  alt="" />
-                <i @click="handleAddCart(product)" class="fa fa-shopping-bag "></i>
+                <img v-bind:src="product.img" class="img"  alt="" />
+                <i @click.prevent="handleAddCart(product)" class="fa fa-shopping-bag "></i>
                 <div class="watch-detail-donghoNam">
                     <h6>{{ product.nameType }}</h6>
                     <h5>{{ product.nameItem }}</h5>

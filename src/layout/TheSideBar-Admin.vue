@@ -30,9 +30,18 @@
             </div>
 
             <div class="Add-main">
-              <router-link to="/admin/manager/AddContentHome">
+              <router-link to="/admin/manager/AddCatorgory">
                 <h3>
-                  AddContent
+                  Catorgory
+                  <i class="fa fa-angle-right"></i>
+                </h3>
+              </router-link>
+            </div>
+
+            <div class="Add-main">
+              <router-link to="/admin/manager/StatusBill">
+                <h3>
+                  Status-Bill
                   <i class="fa fa-angle-right"></i>
                 </h3>
               </router-link>
@@ -47,5 +56,8 @@ export default {
 </script>
 
 <style>
+.aside-main{
+  margin-top: 90px;
+}
 
 </style>

@@ -1,18 +1,19 @@
 <template>
   <div class="admin-page">
-    <div class="bg-avatar"></div>
+    <div class="admin">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 ">
-          <TheSideBarAdmin class="active" />
+        <div class="col-sm-3 " id="admin-page">
+          <TheSideBarAdmin />
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
-import TheSideBarAdmin from '@/components/TheSideBar-Admin.vue';
+import TheSideBarAdmin from '../../layout/TheSideBar-Admin.vue';
 
 export default {
   name: "admin-page",
@@ -22,11 +23,9 @@ export default {
 };
 </script>
 
-<style>
-.bg-avatar {
-  background: #1a2434;
-  width: 100%;
-  height: 50px;
+<style >
+.Add-admin-product{
+  margin-top: 90px;
 }
 .avatar {
   display: flex;
@@ -74,7 +73,7 @@ export default {
 }
 
 /* col-sm-9 */
-.col-sm-9 {
+.Add-admin-product {
   background: #f1ebf2;
   width: 100%;
 }
@@ -91,5 +90,8 @@ export default {
 }
 h3{
     color: white;
+}
+.title-price, .title-name{
+  text-align: center;
 }
 </style>

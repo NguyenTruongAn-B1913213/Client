@@ -1,7 +1,6 @@
 <template>
-    <headerpage 
-    />
-    <router-view/>
+    <headerpage />
+    <router-view />
 </template>
 <script>
 import headerpage from './layout/Header.vue';

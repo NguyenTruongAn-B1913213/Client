@@ -3,7 +3,7 @@
         <!-- <Header style="background-color:black" class="pb-2" /> -->
             <div class="container-fluid donghoNam-main">
                 <h3>TRANG CHỦ / <span>PHỤ KIỆN</span></h3>
-                <div class="row">
+                <div class="row  donghoNam-List">
                     <div class="col-sm-3 sidebar">
                         <aside id="nav_menu-2" class="widget widget_nav_menu">
                             <span class="widget-title shop-sidebar">DANH MỤC SẢN PHẨM</span>
