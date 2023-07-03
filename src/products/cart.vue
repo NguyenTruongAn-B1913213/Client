@@ -15,25 +15,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(cart,index) in cartList" :key="index">
                     <th scope="row">
-                      <img
-                        src="../img/list-watch/watch-1.jpg"
-                        class="img-cart-detail"
-                        alt=""
-                      />
+                      <img v-bind:src="cart.hinhanh" class="img-cart-detail" alt="" />
                     </th>
-                    <td>639,000 vnđ</td>
+                    <td>{{ cart.gia}}</td>
                     <td>
                       <span>
-                        <i class="fa fa-minus"></i>
+                        <i class="fa fa-minus amount" @click="handleUpOrDownAmount(false ,cart)"></i>
                       </span>
-                      <span class="mx-2">2</span>
+                      <span class="mx-2">{{ cart.amount }}</span>
                       <span>
-                        <i class="fa fa-plus"></i>
+                        <i class="fa fa-plus amount" @click="handleUpOrDownAmount(true ,cart)" ></i>
                       </span>
                     </td>
-                    <td>639,000 vnđ</td>
+                    <td>{{ cart.amount * cart.gia }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -62,7 +58,7 @@
               <tbody class="table-body">
                 <tr>
                   <th>Tổng Cộng</th>
-                  <th>639,000 Vnđ</th>
+                  <th>{{ sumMonney }} Vnđ</th>
                 </tr>
                 <tr>
                   <th>Giao Hàng 1</th>
@@ -70,12 +66,12 @@
                 </tr>
                 <tr>
                   <th>Tổng Cộng</th>
-                  <th>639,000 Vnđ</th>
+                  <th>{{ sumMonney }} Vnđ</th>
                 </tr>
               </tbody>
             </table>
             <div>
-              <button class="btn btn-success make-payment">
+              <button class="btn btn-success make-payment" @click="handleOpenModalBuy">
                 Tiến Hành Thanh Toán
               </button>
             </div>
@@ -98,6 +94,14 @@
                   </th>
                 </tr>
               </tfoot>
+              <teleport to='#app'>
+                <app-modal 
+                    :isOpen="isOpenModalBuy"
+                    :handleCloseModal="handleCloseModalBuy" 
+                >
+                <Payment />
+                </app-modal>
+          </teleport>
             </table>
             <div>
               <button class="btn make-code">Áp Dụng Mã Ưu Đãi</button>
@@ -110,9 +114,53 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
+import Payment from '../products/Pay.vue'
 export default {
   name: "gio-hang",
-};
+  data() {
+        return {
+            isOpenModalBuy: false,
+        };
+    },
+    components: { 
+      Payment,
+    }, 
+    computed: {
+        ...mapState({
+            cartList: (state) => state.cartList,
+            
+        }),
+        ...mapGetters(['sumMonney']),
+    },
+    created(){
+        const cartList = localStorage.getItem('cartList');
+        if(cartList){
+            this.$store.commit("setCartList",JSON.parse(cartList))
+        }
+    },
+    methods: {
+        handleDelete(cart) {
+            this.$store.commit("deleteCart",cart)
+            
+        },
+        handleUpOrDownAmount(increase ,cart) {
+            if(increase){
+                this.$store.commit("increaseAmount", cart);
+            }else {
+                this.$store.commit("decreaseAmount", cart);
+            }
+            
+        },
+        handleOpenModalBuy() {
+            this.isOpenModalBuy = true;
+        },
+        handleCloseModalBuy() {
+            this.isOpenModalBuy = false;
+        }
+    },
+    
+}
 </script>
 
 <style>
@@ -173,5 +221,8 @@ export default {
 }
 .table-body tr th {
   font-weight: 470;
+}
+.amount{
+  cursor: pointer;
 }
 </style>

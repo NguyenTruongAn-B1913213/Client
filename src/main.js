@@ -17,8 +17,8 @@ const store = createStore ({
 
         },
         sumMonney: state => {
-            return state.cartList.reduce((total, cart) => total + cart.amount * cart.pricediscount, 0);
-        }
+            return state.cartList.reduce((total, cart) => total + cart.amount * cart.gia, 0);
+        },
         
     },
     mutations:{
@@ -27,7 +27,8 @@ const store = createStore ({
 
         },
         addCart(state,payload){
-            const existingProduct  = state.cartList.find(cart => cart.id === payload.id);
+            console.log(payload)
+            const existingProduct  = state.cartList.find(cart => cart._id === payload._id);
             if(existingProduct){
                 existingProduct.amount +=1
             }else{
@@ -49,7 +50,7 @@ const store = createStore ({
     
         },
         deleteCart(state, payload){
-            state.cartList = state.cartList.filter(cart => cart.id != payload.id);
+            state.cartList = state.cartList.filter(cart => cart._id != payload._id);
             localStorage.setItem('cartList', JSON.stringify(state.cartList));
 
         }

@@ -28,22 +28,14 @@
       <div class="list-item container">
         <h2 class="list-title">Đồng Hồ Nam</h2>
         <div class="list-item-main">
-        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
+        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s" v-for="(product, index) in productNam" :key="index">
           <a href="#">
           <productItem 
-            :product='{
-              hinhanh:"http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/13900AA05.BDC102-600x600.jpg",
-              nameType: "Đồng Hồ Nam",
-              nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-              price: "20,217,000 ₫",
-              pricediscount: "18,195,300 ₫",
-              discount:"20%"
-            }'
-          />
+            :product= product />
           </a>
         </div>
 
-        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
+        <!-- <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
            <a href="#"> 
              <productItem 
               :product='{
@@ -56,29 +48,22 @@
               }'
             />
             </a>
-          </div>
+          </div> -->
           </div>
       </div>
                 <!-- đồng hồ nứ  -->
         <div class="list-item container">
           <h2 class="list-title">Đồng Hồ Nữ</h2>
           <div class="list-item-main">
-          <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
+          <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s" v-for="(product, index) in productNu" :key="index" >
             <a href="#">
                <productItem 
-              :product='{
-                hinhanh: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-tissot-t41.1.183.34-nu-tu-dong-day-inox-600x600-300x300.jpg",
-                nameType: "Đồng Hồ Nữ",
-                nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                price: "20,217,000 ₫",
-                pricediscount: "18,195,300 ₫",
-                discount: "20%"
-              }'
+              :product= product
             />
             </a>
           </div>
 
-          <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
+          <!-- <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
              <a href="#"> 
                <productItem 
                   :product='{
@@ -91,10 +76,8 @@
                   }'
               />
               </a>
+            </div> -->
             </div>
-            </div>
-
-         
         </div>
 
                 <!-- section -->
@@ -127,91 +110,13 @@
       <div class="list-item container ">
         <h2 class="list-title mt-5">Đồng Hồ Đôi</h2>
         <div class="list-item-main">
-        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
+        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s" v-for="(product, index) in productDoi" :key="index">
           <a href="#">
             <productItem 
-              :product='{
-                img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-casio-mtp-e312d-7bvdf-ltp-e312d-4bvdf-doi-pin-day-inox-a-600x600-300x300.jpg",
-                nameType: "Đồng Hồ Đôi",
-                nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                price: "20,217,000 ₫",
-                pricediscount: "18,195,300 ₫",
-                discount: "20%"
-              }'
+              :product= product
             />
           </a>
         </div>
-
-        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
-           <a href="#"> 
-           <productItem 
-                :product='{
-                  img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-doi-sunrise-sg-sl1085.1601-pin-day-inox-600x600-300x300.jpg",
-                  nameType: "Đồng Hồ Đôi",
-                  nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                  price: "20,217,000 ₫",
-                  pricediscount: "18,195,300 ₫",
-                  discount: "20%"
-                }'
-              />
-            </a>
-          </div>
-          <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
-           <a href="#"> 
-           <productItem 
-                :product='{
-                  img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-doi-sunrise-sg-sl1085.1601-pin-day-inox-600x600-300x300.jpg",
-                  nameType: "Đồng Hồ Đôi",
-                  nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                  price: "20,217,000 ₫",
-                  pricediscount: "18,195,300 ₫",
-                  discount: "20%"
-                }'
-              />
-            </a>
-          </div>
-          <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
-           <a href="#"> 
-           <productItem 
-                :product='{
-                  img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-doi-sunrise-sg-sl1085.1601-pin-day-inox-600x600-300x300.jpg",
-                  nameType: "Đồng Hồ Đôi",
-                  nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                  price: "20,217,000 ₫",
-                  pricediscount: "18,195,300 ₫",
-                  discount: "20%"
-                }'
-              />
-            </a>
-          </div>
-          <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
-           <a href="#"> 
-           <productItem 
-                :product='{
-                  img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-doi-sunrise-sg-sl1085.1601-pin-day-inox-600x600-300x300.jpg",
-                  nameType: "Đồng Hồ Đôi",
-                  nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                  price: "20,217,000 ₫",
-                  pricediscount: "18,195,300 ₫",
-                  discount: "20%"
-                }'
-              />
-            </a>
-          </div>
-          <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
-           <a href="#"> 
-           <productItem 
-                :product='{
-                  img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-doi-sunrise-sg-sl1085.1601-pin-day-inox-600x600-300x300.jpg",
-                  nameType: "Đồng Hồ Đôi",
-                  nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                  price: "20,217,000 ₫",
-                  pricediscount: "18,195,300 ₫",
-                  discount: "20%"
-                }'
-              />
-            </a>
-          </div>
           </div>
       </div>
 
@@ -219,35 +124,13 @@
       <div class="list-item container">
         <h2 class="list-title mt-5">Phụ Kiện</h2>
         <div class="list-item-main">
-        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
+        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s" v-for="(product, index) in productPhukien" :key="index" >
           <a href="#">
             <productItem 
-                :product='{
-                  img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/18_Hirsh-Mariner-Black-600x600-300x300.jpg",
-                  nameType: "Phụ Kiện",
-                  nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                  price: "20,217,000 ₫",
-                  pricediscount: "18,195,300 ₫",
-                  discount: "20%"
-                }'
+                :product= product
               />
           </a>
         </div>
-
-        <div class="list-item-watch animate__animated animate__backInLeft animate__delay-1s">
-           <a href="#"> 
-            <productItem 
-                :product='{
-                  img: "http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/day-da-zrc-654-tasman-600x600-300x300.jpg",
-                  nameType: "Đồng Hồ Đôi",
-                  nameItem: "ĐỒNG HỒ LOUIS ERARD 13900AA05.BDC102 NAM PIN DÂY DA",
-                  price: "20,217,000 ₫",
-                  pricediscount: "18,195,300 ₫",
-                  discount: "20%"
-                }'
-              />
-            </a>
-          </div>
         </div>
       </div>
 
@@ -301,12 +184,45 @@
 // import Header from '../layout/Header.vue'
 import Footer from '../layout/Footer.vue'
 import productItem from '@/products/productItem.vue';
+import axios from 'axios';
 
 export default {
   name: 'Home-page',
   components:{
     Footer,
     productItem
+  },
+  data(){
+    return{
+      productNam: [],
+      productNu: [],
+      productDoi: [],
+      productPhukien: [],
+    }
+  },
+  mounted(){
+    this.fetchProductNam();
+    this.fetchProductNu();
+    this.fetchProductDoi();
+    this.fetchProductphukien();
+  },
+  methods:{
+    async fetchProductNam(){
+      const res = await axios.get("http://localhost:3000/api/phanloai/Nam")
+      this.productNam = res.data
+    },
+    async fetchProductNu(){
+      const res = await axios.get("http://localhost:3000/api/phanloai/Nu")
+      this.productNu = res.data
+    },
+    async fetchProductDoi(){
+      const res = await axios.get("http://localhost:3000/api/phanloai/Doi")
+      this.productDoi = res.data
+    },
+    async fetchProductphukien(){
+      const res = await axios.get("http://localhost:3000/api/phanloai/phukien")
+      this.productPhukien = res.data
+    }
   }
 }
 </script>

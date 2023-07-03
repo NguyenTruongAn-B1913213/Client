@@ -4,13 +4,13 @@
                 <div class="discount">
                     <span>{{ product.discount }}</span>
                 </div>
-                <img v-bind:src="product.img" class="img"  alt="" />
+                <img v-bind:src="product.hinhanh" class="img"  alt="" />
                 <i @click.prevent="handleAddCart(product)" class="fa fa-shopping-bag "></i>
                 <div class="watch-detail-donghoNam">
-                    <h6>{{ product.nameType }}</h6>
-                    <h5>{{ product.nameItem }}</h5>
-                    <span>{{ product.amount }}</span>
-                    <h6><span>{{ product.price }} VND</span> {{ product.pricediscount }} VND</h6>
+                    <h6>{{ product.category }}</h6>
+                    <h5>{{ product.ten }}</h5>
+                    <!-- <span>{{ product.soluong }}</span> -->
+                    <h6><span>{{ product.gia }} VND</span> {{ product.pricediscount }} VND</h6>
                 </div>
         </div>
     </div>

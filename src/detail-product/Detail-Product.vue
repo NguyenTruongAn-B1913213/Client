@@ -1,7 +1,7 @@
 <template>
   <div class="detail-product-page">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 0;">
             <div class="col-sm-3 content-1">
                 <p class="list-title">Sản Phẩm</p>
                 <div class="product-sidebar">
@@ -175,7 +175,7 @@ export default {
 .content-1{
     text-align: left;
     width: 100%;
-    margin-top: 110px;
+    margin-top: 110px;  
 }
 .product-sidebar{
     padding: 10px;

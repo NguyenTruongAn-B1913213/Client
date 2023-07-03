@@ -1,7 +1,7 @@
 <template>
    <div id="header">
       <nav class="navbar navbar-header container-fluid navbar-expand-sm">
-              <a href="./Home"><img src="../img/header/logo-mona-watches-white.png" alt=""></a>
+              <a href="/"><img src="../img/header/logo-mona-watches-white.png" alt=""></a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon nav-icon">
                   <i class="fa fa-bars"></i>
@@ -10,18 +10,21 @@
                <div class="collapse navbar-collapse" id="navbarNav">
                    <ul class="navbar-nav">
                      <li class="nav-item ">
-                       <router-link class="nav-link" to="/Home">Giới Thiệu</router-link>
+                       <router-link class="nav-link" to="/">Giới Thiệu</router-link>
                      </li>
+                     <!-- <li class="nav-item" v-for="(Category, index) in categorys" :key="index">
+                       <router-link to="/" class="nav-link">{{ Category.category }}</router-link>
+                     </li> -->
                      <li class="nav-item">
-                       <router-link to="/donghoNam" class="nav-link">Đồng Hồ Nam</router-link>
+                          <router-link to="/donghoNam" class="nav-link">Đồng Hồ Nam</router-link>
                      </li>
                      <li class="nav-item">
                           <router-link to="/donghoNu" class="nav-link">Đồng Hồ Nữ</router-link>
                      </li>
                      <li class="nav-item">
                         <router-link to="/phuKien" class="nav-link">Phụ Kiện</router-link>
-                     </li>
-                      <!-- <li class="nav-item">
+                     </li> 
+                       <!-- <li class="nav-item">
                           <router-link to="/TinTuc" class="nav-link">Tin Tức</router-link>
                      </li> -->
                       <li class="nav-item">
@@ -32,12 +35,12 @@
                      <div id="app">
                      <div class="icon">
                         <form class="form" id="icon-search">
-                            <button>
+                            <button @click="search">
                                 <svg width="17" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
                                     <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </button>
-                            <input class="input" placeholder="Type your text" required="" type="text">
+                            <input class="input" v-model="searchKey" placeholder="Type your text" required="" type="text">
                             <button class="reset" type="reset">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
@@ -45,9 +48,7 @@
                             </button>
                             <div class="nav-search" >
                               <ul class="history-search">
-                                 <li>dong ho nam</li>
-                                 <li>dong ho nu</li>
-                                 <li>phu kien</li>
+                                 <li v-for="history in searchHistory" :key="history">{{ history }}</li>
                               </ul>
                            </div>
                         </form>
@@ -67,7 +68,7 @@
                      </div>
                      <div class="icon">    
                         <i @click="handleOpenModalCartList" class="fa fa-shopping-bag cart-shopping"></i>
-                        <span class="bages bages-light">{{ getCartList }}</span>
+                        <!-- <span class="bages bages-light">{{ getCartList }}</span> -->
                         <div class="detail-cart">
                               <router-link to="/cart">
                                  <span>Chi Tiết Giỏ Hàng</span>
@@ -118,7 +119,8 @@ export default {
       return {
          cartList: [], //push dữ liệu vào data cartList
          searchKey: '',
-         searchHistory: [],
+         searchHistory:[],
+         categorys: [],
          isHistorySearchVisible: false,
          
        },
@@ -136,7 +138,15 @@ export default {
    created(){
    //   const keyWork = Cookies.get("searchHistory")||[];
    },
+   mounted(){
+      this.Category()
+   },
    methods: {
+      async Category(){
+      const res = await axios.get("http://localhost:3000/api/danhmuc")
+      this.categorys = res.data
+      console.log(this.categorys)
+      },
       handleOpenModalCartList(){
          this.isOpenModalCartList = true;
       },
@@ -146,18 +156,18 @@ export default {
       async search(e){
          e.preventDefault()
          try {
-            this.searchHistory = JSON.parse(Cookies.get('searchHistory')) || [];
+            const searchHistory  = Cookies.get('searchHistory');
+            if(searchHistory){
+               this.searchHistory = JSON.parse(searchHistory)
+            }else{
+               this.searchHistory = [];
+            }
+
             this.searchHistory.push(this.searchKey);
             console.log(this.searchHistory)
             Cookies.set('searchHistory',JSON.stringify(this.searchHistory),{expires: 30})
+            this.$router.push({ name: 'search', query: { searchKey: this.searchKey } });
 
-            const res = await axios.get("http://localhost:3000/api/search",{
-               params:{
-               searchKey: this.searchKey
-               }, 
-            })
-            
-            this.$router.push({ name: 'home', params: { results:JSON.stringify(res.data)  } });
             
          } catch (error) {
             console.log(error)

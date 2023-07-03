@@ -2,6 +2,7 @@ import { createRouter , createWebHistory } from 'vue-router';
 import Login from '../page/Login.vue'
 import Register from '../page/Register.vue'
 import Home from '../page/Home.vue'
+import Search from '../products/search.vue'
 import donghoNam from '../products/donghoNam.vue'
 import donghoNu from '../products/donghoNu.vue'
 import phuKien from '../products/phuKien.vue'
@@ -23,11 +24,17 @@ import jwt_decode from 'jwt-decode';
 
 const routes = [ 
     {
-        path: "/Home",
+        path: "/",
         name:"home",
         component: Home,
         
     },
+    {
+      path: "/search",
+      name:"search",
+      component: Search,
+      
+  },
     {
         path: "/Detail-Product",
         name:"DetailProduct",
@@ -45,16 +52,17 @@ const routes = [
     {
         path: "/donghoNam",
         component: donghoNam,
-        // meta: { requiresAuth: true, requiresAdmin: true }, 
+        meta: { }, 
     },
     {
         path: "/donghoNu",
         component: donghoNu,
-        // meta: { requiresAuth: true }, 
+        // meta: { requiresAuth: true,}, 
     },
     {
         path: "/phuKien",
-        component: phuKien
+        component: phuKien,
+        // meta: { requiresAdmin: true}, 
     },
     {
         path: "/TinTuc",
@@ -104,22 +112,28 @@ const router = createRouter({
     history:createWebHistory(),
     routes,
 })
-router.beforeEach((to, from ,next)=>{
-    const token = Cookies.get("token")
-    if(to.matched.some((record)=> record.meta.requiresAuth)){
-        if(!token){
-            next("/login")
-        }else{
-            const decodedToken = jwt_decode(token)
-            if(to.matched.some((record)=> record.meta.requiresAdmin && decodedToken.role === 'admin')){
-                next()
-            }else{
-                next("/home");
-            }
+router.beforeEach((to, from, next) => {
+    const token = Cookies.get("token");
+    if (to.meta.requiresAdmin) {
+      if (!token) {
+        next("/login");
+      } else {
+        const decodedToken = jwt_decode(token);
+        if (decodedToken.role === "admin") {
+          next();
+        } else {
+          next("/");
         }
-    }else{
+      }
+    } else if (to.meta.requiresAuth) {
+      if (!token) {
+        next("/login");
+      } else {
         next();
+      }
+    } else {
+      next();
     }
-})
+  });
 
 export default router;

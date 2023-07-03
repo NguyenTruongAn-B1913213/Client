@@ -22,13 +22,13 @@
                             <button type="submit" @click="login"  class="btn submitLogin">Đăng Nhập </button>
                             <router-link to="/Register" type="submit" class="btn submitLogin">Đăng ký</router-link>
                             <div class="icon-social">
-                                <router-link to="/">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Facebook_icon_2013.svg/2048px-Facebook_icon_2013.svg.png" alt="facebook">
-                                </router-link>
+                                <button class="facebook-button" @click="loginFacebook">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="Facebook" class="facebook-icon">
+                                </button>
+                                <button class="google-button" @click="loginGoogle">
+                                    <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="Google" class="facebook-icon">
+                                </button>
 
-                                <router-link to="/">
-                                    <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="google">
-                                </router-link>
                             </div>
                     </form>
                     
@@ -54,6 +54,19 @@ import Footer from '../layout/Footer.vue'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import router from '@/router'
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider,GithubAuthProvider  } from "firebase/auth";
+const firebaseConfig = {
+  apiKey: "AIzaSyBb0Hlr7938oR6j3efPqPIqAoDFDDhA2G4",
+  authDomain: "auth-46617.firebaseapp.com",
+  projectId: "auth-46617",
+  storageBucket: "auth-46617.appspot.com",
+  messagingSenderId: "184227684705",
+  appId: "1:184227684705:web:b6f39251661be43dd0e520",
+  measurementId: "G-2K9PG2ZNSW"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app)
 export default {
     name : "login-page",
     components:
@@ -69,6 +82,52 @@ export default {
         }
     },
     methods:{
+        async loginFacebook(e){
+            e.preventDefault();
+            try {
+                
+                const provider = new GithubAuthProvider ();
+                const result = await signInWithPopup(auth, provider);
+                const credential = GithubAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // const user = result.user;
+                this.token = token
+                const expirationTime = new Date();
+                expirationTime.setTime(expirationTime.getTime() + 3 * 60 * 60 * 1000); // Set expiration time to 3 hours from now
+                Cookies.set("token",this.token,{expires: expirationTime});
+                // router.push("/donghoNam")
+                
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async loginGoogle(e){
+            e.preventDefault();
+            try {
+                
+                const provider = new GoogleAuthProvider();
+                const result = await signInWithPopup(auth, provider);
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // const user = result.user;
+                this.token = token
+                const expirationTime = new Date();
+                expirationTime.setTime(expirationTime.getTime() + 3 * 60 * 60 * 1000); // Set expiration time to 3 hours from now
+                Cookies.set("token",this.token,{expires: expirationTime});
+                // router.push("/donghoNam")
+                
+            } catch (error) {
+                console.log(error)
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // // The email of the user's account used.
+                // const email = error.customData.email;
+                // // The AuthCredential type that was used.
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+            }
+            
+
+        },  
         back(){
             router.push("/home")
         },
@@ -84,7 +143,7 @@ export default {
                 expirationTime.setTime(expirationTime.getTime() + 3 * 60 * 60 * 1000); // Set expiration time to 3 hours from now
                 Cookies.set("token",this.token,{expires: expirationTime});
                 alert("Đăng nhập thành công")
-                // router.push("/donghoNam")
+                router.push("/donghoNu")
             } catch (error) {
                 console.log(error)   
             }
@@ -184,5 +243,13 @@ export default {
   width: 40px;
   height: 100%;
   margin: 20px;
+}
+.facebook-button{
+    border: none ;
+    background: white;
+}
+.google-button{
+    border: none ;
+    background: white;
 }
 </style>
