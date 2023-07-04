@@ -23,14 +23,14 @@
                 <div class="form-group col-sm-12">
                 <label for="inputPayMethod">Phương Thức Thanh Toán</label>
                 <br>
-                <select name="pay-method" id="payment">
+                <select name="pay-method" id="payment" v-model="selectedPaymentMethod">
                     <option value="1">Thanh Toán Khi Nhận Hàng</option>
                     <option value="2">Thanh Toán Trực Tuyến</option>
                 </select>
                 </div>
             </div>
     </form>
-    <button class="btn btn-success sb-mit-method-paying" @click="confirmPayment">Xác Nhận Thanh Toán</button>
+    <button class="btn btn-success sb-mit-method-paying" @click="payOption">Xác Nhận Thanh Toán</button>
     <!-- <teleport to='#app'>
             <app-modal 
                 :isOpen="isOpenStatus"
@@ -53,10 +53,24 @@ export default {
         }),
         ...mapGetters(['sumMonney']),
     }, 
+    data(){
+        return {
+            selectedPaymentMethod:''
+        }
+    },
     created(){
         console.log(this.sumMonney)
     },
     methods:{
+        payOption(){
+            if (this.selectedPaymentMethod === '1') {
+                this.confirmPayment()
+            }
+            else{
+                this.confirmPaypal()
+            }
+        },
+
         async confirmPayment(){
             try {
             const orderData = {
@@ -81,6 +95,19 @@ export default {
                 
             } catch (error) {
                 console.log(error   )
+                
+            }
+        },
+        async confirmPaypal(){
+            try {
+            const orderData = {
+                totalPrice: this.sumMonney
+            }
+            const res = await axios.post("http://localhost:3000/api/create-payment",orderData)
+            console.log(res.data)
+            window.location.href = res.data.approval_url;
+            } catch (error) {
+                console.log(error)
                 
             }
         }

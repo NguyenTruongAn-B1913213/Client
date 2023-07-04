@@ -2,7 +2,7 @@
   <div class="admin-page">
     <div class="admin">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" style="margin-top: 0;">
         <div class="col-sm-3 " id="admin-page">
           <TheSideBarAdmin />
         </div>

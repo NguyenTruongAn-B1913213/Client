@@ -3,7 +3,7 @@
       <div class=" login-main">
         <div class="container-login">
             <div class="login-form">
-                <div class="box login">
+                <div v-if="!token"  class="box login">
                     <h2>LoGin</h2>
                     <form >
                             <div class="form-group">
@@ -33,10 +33,10 @@
                     </form>
                     
                 </div>
-                <!-- <div v-else>
+                <div v-else>
                     <h1>Bạn đã đăng nhập</h1>
                     <button type="submit" @click="back" class="btn submitLogin">Trở lại</button>
-                </div> -->
+                </div>
                 
             </div> 
             <div class="FormBox"></div>
@@ -80,6 +80,10 @@ export default {
             password: "",
             token : null
         }
+    },
+    created(){
+        this.token = Cookies.get('token');
+        console.log(this.token)
     },
     methods:{
         async loginFacebook(e){
@@ -139,11 +143,13 @@ export default {
                 password: this.password
                 })
                 this.token = res.data.token
+                console.log(this.token)
                 const expirationTime = new Date();
                 expirationTime.setTime(expirationTime.getTime() + 3 * 60 * 60 * 1000); // Set expiration time to 3 hours from now
                 Cookies.set("token",this.token,{expires: expirationTime});
                 alert("Đăng nhập thành công")
-                router.push("/donghoNu")
+                router.push("/admin/manager")
+                window.location.reload();
             } catch (error) {
                 console.log(error)   
             }

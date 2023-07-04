@@ -4,6 +4,7 @@ import Register from '../page/Register.vue'
 import Home from '../page/Home.vue'
 import Search from '../products/search.vue'
 import donghoNam from '../products/donghoNam.vue'
+import donghoDoi from '../products/donghoDoi.vue'
 import donghoNu from '../products/donghoNu.vue'
 import phuKien from '../products/phuKien.vue'
 import TinTuc from '../page/TinTuc.vue'
@@ -14,7 +15,7 @@ import AddProduct from '../admin/manager/AddProduct.vue'
 import AddCatorgory from '../admin/manager/AddCatorgory.vue'
 import Overviews from '../admin/manager/detail/AddProductOverviews.vue'
 import OverviewsContent from '../admin/manager/detail/AddContentHomeOverviews.vue'
-import EditProduct from '../admin/manager/edit/EditProduct.vue'
+import EditProduct from '../admin/manager/editProduct.vue'
 // import EditContent from '../admin/manager/edit/EditContent.vue'
 import StatusBill from '../admin/manager/status-bill/Status-Produt.vue'
 import DetailProduct from '../detail-product/Detail-Product.vue'
@@ -35,8 +36,8 @@ const routes = [
       component: Search,
       
   },
-    {
-        path: "/Detail-Product",
+  {
+      path: "/Detail-Product/:id",
         name:"DetailProduct",
         component: DetailProduct,
         
@@ -52,18 +53,22 @@ const routes = [
     {
         path: "/donghoNam",
         component: donghoNam,
-        meta: { }, 
     },
     {
         path: "/donghoNu",
         component: donghoNu,
-        // meta: { requiresAuth: true,}, 
+        
     },
     {
         path: "/phuKien",
         component: phuKien,
-        // meta: { requiresAdmin: true}, 
+        // meta: { }, 
     },
+    {
+      path: "/donghoDoi",
+      component: donghoDoi,
+      // meta: { }, 
+  },
     {
         path: "/TinTuc",
         component: TinTuc
@@ -75,37 +80,45 @@ const routes = [
     {
         path: '/admin/manager',
         name: "admin",
-        component: admin
+        component: admin,
+        meta: { requiresAuth: true,requiresAdmin: true}
+
     },
     {
         path: '/admin/manager/AddProduct',
         name: "AddProduct",
-        component: AddProduct
+        component: AddProduct,
+        meta: { requiresAuth: true,requiresAdmin: true}
     },
     {
         path: '/admin/manager/AddCatorgory',
         name: "AddCatorgory",
-        component: AddCatorgory
+        component: AddCatorgory,
+        meta: { requiresAuth: true,requiresAdmin: true}
     },
     {
         path: '/admin/manager/StatusBill',
         name: "StatusBill",
-        component: StatusBill
+        component: StatusBill,
+        meta: { requiresAuth: true,requiresAdmin: true}
     },
     {
         path: '/admin/manager/AddProduct/Overviews',
         name: "Overviews",
-        component: Overviews
+        component: Overviews,
+        meta: { requiresAuth: true,requiresAdmin: true}
     },
     {
         path: '/admin/manager/AddContentHome/Overviews',
         name: "AddContentHomeOverviews",
-        component: OverviewsContent
+        component: OverviewsContent,
+        meta: { requiresAuth: true,requiresAdmin: true}
     },
     {
-        path: '/admin/manager/AddProduct/Overviews/EditProduct',
+        path: '/admin/manager/Overviews/EditProduct/:id',
         name: "EditProduct",
-        component: EditProduct
+        component: EditProduct,
+        meta: { requiresAuth: true,requiresAdmin: true}
     },
 ]
 const router = createRouter({

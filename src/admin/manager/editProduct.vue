@@ -19,14 +19,14 @@
                   <div class="form-group">
                     <label for="inputAddress">Hình ảnh</label>
                     <div class="custom-file">
-                      <input type="text" v-model="hinhanh" class="form-control" id="input" />
+                      <input type="text" v-model="product.hinhanh" class="form-control" id="input" />
                       <!-- <label class="custom-file-label" for="customFile"></label> -->
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="date">Giá</label>
-                      <input v-model="gia"
+                      <input v-model="product.gia"
                         type="text"
                         class="form-control"
                         id="inputEmail4"
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label for="date">Mã Sản Phẩm </label>
-                      <input v-model="masp"
+                      <input v-model="product.masp"
                         type="text"
                         class="form-control"
                         id="inputEmail4"
@@ -45,21 +45,21 @@
                   <div class="form-row">
                     <div class="form-group col-md-12">
                       <label for="inputCity">Tên Sản Phẩm</label>
-                      <input type="text" v-model="ten" class="form-control" id="input" />
+                      <input type="text" v-model="product.ten" class="form-control" id="input" />
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="date">Chất Liệu</label>
                       <input
-                        type="text" v-model="chatlieu"
+                        type="text" v-model="product.chatlieu"
                         class="form-control"
                         id="inputEmail4"
                       />
                     </div>
                     <div class="form-group col-md-6">
                       <label for="date">Xuất Xứ</label>
-                      <input v-model="xuatxu"
+                      <input v-model="product.xuatxu"
                         type="text"
                         class="form-control"
                         id="inputEmail4"
@@ -69,7 +69,7 @@
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="date">Thương Hiệu</label>
-                      <input v-model="thuonghieu"
+                      <input v-model="product.thuonghieu"
                         type="text"
                         class="form-control"
                         id="inputEmail4"
@@ -77,7 +77,7 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label for="date">Số Lượng</label>
-                      <input v-model="soluong"
+                      <input v-model="product.soluong"
                         type="text"
                         class="form-control"
                         id="inputEmail4"
@@ -88,15 +88,8 @@
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="date">Giới tính</label>
-                      <select class="form-control" v-model="gioitinh">
-                        <option value="Nam;">Nam</option>
-                        <option value="Nam;">Nữ</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-6">
                       <label for="date">Danh Mục</label>
-                      <select class="form-control"  v-model="category"> 
+                      <select class="form-control"  v-model="product.category"> 
                         <!-- <option value="nam" v-for="(Category, index) in categorys" :key="index">{{ Category.category }}</option> -->
                         <option value="Đồng Hồ Nam" >Đồng Hồ Nam</option> 
                         <option value="Đồng Hồ Nữ" >Đồng Hồ Nữ</option> 
@@ -106,14 +99,22 @@
 
                       </select>
                     </div>
+                    <div class="form-group col-md-6">
+                      <label for="date">Giới tính</label>
+                      <select class="form-control" v-model="product.gioitinh">
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                      </select>
+                    </div>
+                   
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-12">
                       <label for="inputCity" style="padding-right: 20px; top: 20px;">Mô Tả</label>
-                      <textarea id="w3review" v-model="mota" name="w3review" style="margin-top: 20px;" rows="4" cols="60"></textarea>
+                      <textarea id="w3review" v-model="product.mota" name="w3review" style="margin-top: 20px;" rows="4" cols="60"></textarea>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary" @click.prevent="createProduct">Thêm Sản Phẩm</button>
+                  <button type="submit" class="btn btn-primary" @click.prevent="updateProduct">Sửa Sản Phẩm</button>
                 </form>
               </div>
             </div>
@@ -128,63 +129,52 @@
 import axios from 'axios';
 import TheSideBarAdmin from '../../layout/TheSideBar-Admin.vue';
 import router from '@/router';
+// import router from '@/router';
 export default {
   components: {
     TheSideBarAdmin
   },
   data(){
     return{
-      categorys:[],
-      masp:"",
-      ten:"",
-      mota:"",
-      hinhanh:"",
-      chatlieu:"",
-      gioitinh:"",
-      thuonghieu:"",
-      category:"",
-      xuatxu:"",
-      soluong:""
-
+      product:{}
     }
   },
-  mounted(){
-    this.fetchCartegoy()
+  created(){
+        this.fetchProduct()
+
   },
   methods:{
-    async fetchCartegoy(){
-      const res = await axios.get("http://localhost:3000/api/danhmuc")
-      this.category = res.data
-
-    },
-    async createProduct(){
-      const newProduct = {
-        masp : this.masp,
-        ten: this.ten,
-        mota: this.mota,
-        hinhanh: this.hinhanh,
-        gia: this.gia,
-        chatlieu : this.chatlieu,
-        gioitinh: this.gioitinh,
-        thuonghieu: this.thuonghieu,
-        category: this.category,
-        xuatxu: this.xuatxu,
-        soluong: this.soluong,
-      };
-      try {
-        await axios.post("http://localhost:3000/api/",{newProduct})
-        alert("Sản Phẩm Đã Được Thêm Vào Hệ Thống")
-        router.push("/admin/manager/AddProduct/Overviews")
-
-        
-      } catch (error) {
-        alert("Thêm Sản Phẩm Thất Bại")
-        console.log(error)
-        
-      }
-      
-      
-    }
+        async fetchProduct(){
+            const productid = this.$route.params.id;
+            const res = await axios.get(`http://localhost:3000/api/${productid}`)
+            this.product = res.data
+            console.log(this.product)
+        },
+        async updateProduct(){
+          try {
+            const productid = this.$route.params.id;
+            await axios.patch(`http://localhost:3000/api/${productid}`,{
+              masp : this.masp,
+              ten: this.ten,
+              mota: this.mota,
+              hinhanh: this.hinhanh,
+              gia: this.gia,
+              chatlieu : this.chatlieu,
+              gioitinh: this.gioitinh,
+              thuonghieu: this.thuonghieu,
+              category: this.category,
+              xuatxu: this.xuatxu,
+              soluong: this.soluong,
+            })
+            alert("Chỉnh Sửa Sản Phẩm Thành Công")
+            router.push("/admin/manager/AddProduct/Overviews")
+          } catch (error) {
+            alert("Chỉnh Sửa Sản Phẩm Không Thành Công")
+          }
+         
+        }
   }
+ 
+      
 };
 </script>

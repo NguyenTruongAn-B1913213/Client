@@ -1,7 +1,7 @@
 <template>
   <div class="status-bill">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" style="margin-top: 0;">
         <div class="col-sm-3">
           <TheSideBarAdmin />
         </div>
@@ -13,7 +13,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <form class="main-add-product-admin">
-                  <table class="table table-light">
+                  <!-- <table class="table table-light">
                     <thead>
                       <tr class="content-main-thead">
                         <th scope="col">ID</th>
@@ -45,9 +45,9 @@
                         </div>
                       </tr>
                     </tbody>
-                  </table>
+                  </table> -->
 
-                  <h3 class="title-bill-status">Trạng Thái Đơn Hàng</h3>
+                  <h3 class="title-bill-status"> Đơn Hàng</h3>
                   <table class="table table-light">
                     <thead>
                       <tr class="content-main-thead">
@@ -59,15 +59,15 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="content-main-tbody-admin">
-                        <th scope="row">1</th>
+                      <tr class="content-main-tbody-admin" v-for="(order, index) in delivery" :key="index">
+                        <th scope="row">{{ index + 1 }}</th>
                         <td class="title-name">
-                          Phúc
+                          {{ order.hoten }}
                         </td>
 
-                        <td class="title-price">12.99$</td>
-                        <td class="title-name">
-                          PSG Home Match Dri-FIT ADV Jersey 23/24
+                        <td class="title-price">{{ order.totalPrice }}</td>
+                        <td class="title-name" v-for="(item, index) in order.item" :key="index">
+                            {{ item.product }} - Số Lượng {{ item.soluong }}
                         </td>
                         <div class="mainEdit-Product">
                           <div class="EditProduct-Button-Bill">
@@ -93,11 +93,39 @@
 </template>
 
 <script>
+import axios from 'axios';
 import TheSideBarAdmin from "../../../layout/TheSideBar-Admin.vue";
 export default {
   components: {
     TheSideBarAdmin,
   },
+  data(){
+    return {
+      delivery:[],
+      page: 1,
+      totalPages: 0,
+      products:[]
+    }
+  },
+  created(){
+    this.getDelivery()
+        this.getProduct()
+  },
+  mounted(){
+
+  },
+  methods:{
+    async getDelivery(){
+      const res = await axios.get(`http://localhost:3000/api/delivery?page=${this.page}`)
+      this.delivery = res.data.delivery
+      this.totalPages = res.data.totalPages
+    },
+    async getProduct(){
+      const res = await axios.get("http://localhost:3000/api/product/name")
+      this.products = res.data
+      console.log(this.products)
+    },
+  }
 };
 </script>
 

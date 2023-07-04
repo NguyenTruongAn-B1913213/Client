@@ -28,32 +28,28 @@
             <div class="col-sm-9 content-2">
                 <div class="row line-stop">
                     <div class="col-sm-6 img-detail-product">
-                        <img src="http://mauweb.monamedia.net/dongho/wp-content/uploads/2018/03/dong-ho-casio-ga-110gb-1adr-nam-pin-day-nhua-600x600.jpg" alt="">
+                        <img v-bind:src="product.hinhanh" class="img"  alt="" />
                     </div>
                     <div class="col-sm-6">
                         <div class="src-detai-product">
-                            <router-link to="/Home" class="id1">TRANG CHỦ</router-link>
+                            <router-link to="/" class="id1">TRANG CHỦ</router-link>
                             <span>/</span>
-                            <router-link to="/donghoNam" class="id1">ĐỒNG HỒ NAM</router-link>
+                            <span>{{ product.category }}</span>
                         </div>
                         <div class="content-detail-product">
-                            <h3 class="new-list-title">ĐỒNG HỒ CASIO GA-110GB-1ADR NAM PIN DÂY NHỰA</h3>
-                            <p>Đồng hồ nam CASIO GA-110GB-1AVDF có thiết kế mới sử dụng kim loại màu vàng làm vạch số và kim nổi bật, sang trọng hơn so với thiết kế cũ nên mẫu GA-110GB-1AVDF rất được lòng giới trẻ hiện nay.</p>
+                            <h3 class="new-list-title">{{ product.ten }}</h3>
+                            <p>{{ product.mota }}</p>
+                            <!-- <p>Đồng hồ nam CASIO GA-110GB-1AVDF có thiết kế mới sử dụng kim loại màu vàng làm vạch số và kim nổi bật, sang trọng hơn so với thiết kế cũ nên mẫu GA-110GB-1AVDF rất được lòng giới trẻ hiện nay.</p> -->
                             <ul>
                                 <li>
-                                    <span>Sản phẩm này đã hết hàng hoặc không có sẵn.</span>
+                                    <span>Mã: {{ product.masp }}</span>
                                 </li>
                                 <li>
-                                    <span>Mã: GA-110GB-1ADR</span>
+                                    <!-- <span>Danh Mục : <router-link to="/donghoNam">Đồng Hồ Nam</router-link></span> -->
+                                    <span>Danh Mục :{{  product.category}}</span>
                                 </li>
                                 <li>
-                                    <span>Danh Mục : <router-link to="/donghoNam">Đồng Hồ Nam</router-link></span>
-                                </li>
-                                <li>
-                                    <span>Tag : Đồng Hồ Nam bán chạy nhất</span>
-                                </li>
-                                <li>
-                                    <button class="btn buy-product">Mua Hàng</button>
+                                    <button class="btn buy-product" @click.prevent="handleAddCart(product)">Mua Hàng</button>
                                 </li>
                             </ul>
                             
@@ -82,33 +78,33 @@
                                         <tr class="shop_attributes_tr">
                                             <th>CHẤT LIỆU DÂY</th>
                                             <td>
-                                                <p>Dây Nhựa / Cao Su</p>
+                                                <p>{{ product.chatlieu }}</p>
                                             </td>
                                         </tr>
                                         <tr class="shop_attributes_tr">
                                             <th>GIỚI TÍNH</th>
                                             <td>
-                                                <p>Nam</p>
+                                                <p>{{ product.gioitinh }}</p>
                                             </td>
                                         </tr>
-                                        <tr class="shop_attributes_tr">
+                                        <!-- <tr class="shop_attributes_tr">
                                             <th>HÌNH DẠNG MẶT SỐ</th>
                                             <td>
                                                 <p>Tròn</p>
                                             </td>
-                                        </tr>
-                                        <tr class="shop_attributes_tr">
+                                        </tr> -->
+                                        <!-- <tr class="shop_attributes_tr">
                                             <th>KÍCH THƯỚC MẶT SỐ</th>
                                             <td>
                                                 <p>30 – 34 mm</p>
                                             </td>
-                                        </tr>
-                                        <tr class="shop_attributes_tr">
+                                        </tr> -->
+                                        <!-- <tr class="shop_attributes_tr">
                                             <th>MÀU MẶT SỐ</th>
                                             <td>
                                                 <p>Đen, Vàng</p>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                         <tr class="shop_attributes_tr">
                                             <th>MỨC CHỐNG NƯỚC</th>
                                             <td>
@@ -118,13 +114,13 @@
                                         <tr class="shop_attributes_tr">
                                             <th>THƯƠNG HIỆU</th>
                                             <td>
-                                                <p>Casio, G-Shock & Baby-G</p>
+                                                <p>{{ product.thuonghieu }}</p>
                                             </td>
                                         </tr>
                                         <tr class="shop_attributes_tr">
                                             <th>XUẤT XỨ</th>
                                             <td>
-                                                <p>Nhật Bản</p>
+                                                <p>{{ product.xuatxu }}</p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -140,8 +136,31 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import axios from 'axios';
 export default {
+    name: 'ProductDetail',
+    data(){
+        return {
+            product:{}
+        }
+    },
+    created(){
+        this.fetchProduct()
 
+    },
+    methods:{
+        async fetchProduct(){
+            const productid = this.$route.params.id;
+            const res = await axios.get(`http://localhost:3000/api/${productid}`)
+            this.product = res.data
+            console.log(this.product)
+        },
+        ...mapMutations(["addCart"]),
+        handleAddCart(){
+            this.addCart(this.product)
+        }
+    }
 }
 </script>
 

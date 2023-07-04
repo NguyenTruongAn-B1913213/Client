@@ -12,14 +12,17 @@
                      <li class="nav-item ">
                        <router-link class="nav-link" to="/">Giới Thiệu</router-link>
                      </li>
-                     <!-- <li class="nav-item" v-for="(Category, index) in categorys" :key="index">
-                       <router-link to="/" class="nav-link">{{ Category.category }}</router-link>
+                     <!-- <li class="nav-item" v-for="(item, index) in categorys" :key="index">
+                       <router-link to="/" class="nav-link">{{ item.category }}</router-link>
                      </li> -->
                      <li class="nav-item">
                           <router-link to="/donghoNam" class="nav-link">Đồng Hồ Nam</router-link>
                      </li>
                      <li class="nav-item">
                           <router-link to="/donghoNu" class="nav-link">Đồng Hồ Nữ</router-link>
+                     </li>
+                     <li class="nav-item">
+                          <router-link to="/donghoDoi" class="nav-link">Đồng Hồ Đôi</router-link>
                      </li>
                      <li class="nav-item">
                         <router-link to="/phuKien" class="nav-link">Phụ Kiện</router-link>
@@ -60,15 +63,21 @@
                      </div>
                      <div class="icon">
                         <router-link to="/Login"><i class="fa fa-user"></i></router-link>
-                        <div class="logout">
-                              <ul>
+                        <div v-if="token" class="logout">
+                              <ul style="cursor: pointer;" @click="logout">
                                  <li>Log-out</li>
                               </ul>
                         </div>
+                        <!-- <div  v-if="token === undefined" class="logout">
+                              <ul style="cursor: pointer;" @click="login">
+                                 <li>login-in</li>
+                              </ul>
+                        </div> -->
+                        
                      </div>
                      <div class="icon">    
-                        <i @click="handleOpenModalCartList" class="fa fa-shopping-bag cart-shopping"></i>
-                        <!-- <span class="bages bages-light">{{ getCartList }}</span> -->
+                        <i class="fa fa-shopping-bag cart-shopping"></i>
+                        <span class="bages bages-light">{{ getCartList }}</span>
                         <div class="detail-cart">
                               <router-link to="/cart">
                                  <span>Chi Tiết Giỏ Hàng</span>
@@ -100,6 +109,7 @@ import CartList from '../page/CartList.vue'
 import AppModal from '../products/AppModal.vue';
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import router from '@/router';
 
  
 
@@ -122,6 +132,7 @@ export default {
          searchHistory:[],
          categorys: [],
          isHistorySearchVisible: false,
+         token : null
          
        },
       {
@@ -136,22 +147,14 @@ export default {
       // }
    },
    created(){
-   //   const keyWork = Cookies.get("searchHistory")||[];
-   },
-   mounted(){
+      this.token = Cookies.get("token");
       this.Category()
    },
    methods: {
       async Category(){
       const res = await axios.get("http://localhost:3000/api/danhmuc")
       this.categorys = res.data
-      console.log(this.categorys)
-      },
-      handleOpenModalCartList(){
-         this.isOpenModalCartList = true;
-      },
-      handleCloseModalCartList() {
-         this.isOpenModalCartList = false;
+      // console.log(this.categorys)
       },
       async search(e){
          e.preventDefault()
@@ -164,7 +167,7 @@ export default {
             }
 
             this.searchHistory.push(this.searchKey);
-            console.log(this.searchHistory)
+            console.log(this.searchHistory)  
             Cookies.set('searchHistory',JSON.stringify(this.searchHistory),{expires: 30})
             this.$router.push({ name: 'search', query: { searchKey: this.searchKey } });
 
@@ -173,7 +176,14 @@ export default {
             console.log(error)
             
          }
-         
+      },
+      login(){
+         router.push("/login")
+      },
+      
+      logout(){
+         Cookies.remove('token');
+         window.location.reload();
       },
       clearSearchHistory() {
       // Xóa lịch sử tìm kiếm và xóa cookie

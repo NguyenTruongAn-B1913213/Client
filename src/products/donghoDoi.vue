@@ -2,7 +2,7 @@
     <div class="donghoNam-page">
         <!-- <Header style="background-color:black" class="pb-2" /> -->
             <div class="container-fluid donghoNam-main">
-                <h3>TRANG CHỦ / <span>ĐỒNG HỒ NAM</span></h3>
+                <h3>TRANG CHỦ / <span>ĐỒNG HỒ ĐÔI</span></h3>
                 <div class="row  donghoNam-List">
                     <div class="col-sm-3 sidebar">
                         <aside id="nav_menu-2" class="widget widget_nav_menu">
@@ -102,7 +102,7 @@
 <script>
 // import Header from '../layout/Header.vue'
 import Footer from '../layout/Footer.vue'
-import productItem from '../products/productItem.vue'
+import productItem from './productItem.vue'
 // import axios from 'axios';
 // import Cookies from 'js-cookie';
 // import img1 from '../img/list-watch/watch-1.jpg'
@@ -154,7 +154,7 @@ export default {
   },
     methods: {
         async fetchData(){
-            const res = await axios.get(`http://localhost:3000/api/danhmuc/Nam?page=${this.page}`)
+            const res = await axios.get(`http://localhost:3000/api/danhmuc/Doi?page=${this.page}`)
             this.products = res.data.category
             this.totalPages = res.data.totalPages
             
