@@ -12,6 +12,8 @@
                     <th scope="col">Giá</th>
                     <th scope="col">Số Lượng</th>
                     <th scope="col">Tổng Cộng</th>
+                    <th scope="col"></th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -30,6 +32,7 @@
                       </span>
                     </td>
                     <td>{{ cart.amount * cart.gia }}</td>
+                    <td><i @click="handleDelete(cart)" class="fa fa-times"></i></td>
                   </tr>
                 </tbody>
               </table>
@@ -164,6 +167,9 @@ export default {
 </script>
 
 <style>
+.fa-times{
+  cursor: pointer;
+}
 .table {
   text-align: left;
   border-bottom: 1px solid black;
